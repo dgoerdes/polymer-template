@@ -1,0 +1,7 @@
+{
+  "name": "dg-polymer",
+  "short_name": "dg-polymer",
+  "description": "Let's do some Polymer!",
+  "start_url": "/",
+  "display": "standalone"
+}

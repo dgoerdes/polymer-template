@@ -1,0 +1,25 @@
+{
+  "name": "dg-polymer",
+  "version": "0.0.0",
+  "description": "let's do some polymer",
+  "scripts": {
+    "start": "gulp watch"
+  },
+  "author": "Danel Goerdes",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.18.0",
+    "browser-sync": "^2.18.6",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-html-autoprefixer": "0.0.1",
+    "gulp-load-plugins": "^1.4.0",
+    "gulp-pug": "^3.2.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-style-modules": "^0.1.0",
+    "jstransformer-babel": "^2.1.0",
+    "jstransformer-sass": "^0.1.1",
+    "run-sequence": "^1.2.2"
+  }
+}

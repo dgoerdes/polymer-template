@@ -1,0 +1,15 @@
+{
+  "name": "dg-polymer",
+  "authors": [
+    "Danel Goerdes"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.7.1",
+    "app-route": "PolymerElements/app-route#^0.9.3"
+  },
+  "devDependencies": {
+    "web-component-tester": "^4.0.0",
+    "webcomponentsjs": "^0.7.23"
+  },
+  "private": true
+}
