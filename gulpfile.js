@@ -106,6 +106,8 @@ gulp.task('styles', () => {
         }));
 });
 
+// TODO Copy + Optimize Images
+
 /**
  * BROWSER SYNC
  */
