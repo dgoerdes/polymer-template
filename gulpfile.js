@@ -23,7 +23,8 @@ let paths = {
 
     dependencies: {
         js: [
-            'node_modules/rxjs/bundles/Rx.js'
+            'node_modules/rxjs/bundles/Rx.js',
+            'node_modules/redux/dist/redux.js'
         ]
     },
 

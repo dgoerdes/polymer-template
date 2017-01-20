@@ -1,13 +1,24 @@
 Polymer({
     is: 'home-page',
+    behaviors: [ReduxBehavior],
+    created() {
+        console.log('home state', this.getState())
+    },
     properties: {
         who: {
             type: String,
             value: 'World'
         },
         fromState: {
-            linkState: 'state.text'
+            type: String,
+            statePath: 'text'
+        },
+        compState: {
+            type: String,
+            computed: 'computeState(fromState)'
         },
     },
-    behaviors: [Redux.StateReceiverBehavior]
+    computeState(text) {
+        return 'foo + ' + text
+    },
 });
