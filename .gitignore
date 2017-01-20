@@ -6,4 +6,5 @@ debug.log*
 
 polymer/src/
 polymer/images/
+polymer/vendor/
 polymer/build/

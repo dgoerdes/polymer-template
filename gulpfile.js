@@ -23,18 +23,14 @@ let paths = {
 
     dependencies: {
         js: [
-            'bower_components/webcomponentsjs/webcomponents-lite.js'
-        ],
-        html: [
-            'bower_components/polymer/polymer.html',
-            'bower_components/polymer/polymer-mini.html',
-            'bower_components/polymer/polymer-micro.html'
+            'node_modules/rxjs/bundles/Rx.js'
         ]
     },
 
     polymer: {
         src: './polymer/src',
-        images: './polymer/images'
+        images: './polymer/images',
+        vendor: './polymer/vendor'
     }
 };
 
@@ -60,7 +56,12 @@ let options = {
  * CLEAN
  */
 gulp.task('clean', (cb) => {
-    return del([paths.polymer.src, paths.polymer.images], cb);
+    return del([paths.polymer.src, paths.polymer.vendor, paths.polymer.images], cb);
+});
+
+gulp.task('dependencies', () => {
+    return gulp.src(paths.dependencies.js)
+        .pipe(gulp.dest(paths.polymer.vendor));
 });
 
 /**
@@ -70,7 +71,7 @@ gulp.task('clean', (cb) => {
  * Includes scripts which get transpiled with babel if filterd.
  * https://github.com/jstransformers/jstransformer-babel
  */
-gulp.task('app', () => {
+gulp.task('app', ['dependencies'], () => {
     return gulp.src(paths.src.pug)
         .pipe($.pug(options.pug))
         .on('error', (e) => console.log(e))
