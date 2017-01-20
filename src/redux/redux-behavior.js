@@ -10,4 +10,3 @@ Polymer({
     },
     behaviors: [Redux.StateProviderBehavior]
 });
-console.log('redux-behavior')
