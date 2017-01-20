@@ -1,8 +1,9 @@
 {
   "name": "dg-polymer",
   "authors": [
-    "Danel Goerdes"
+    "Daniel Goerdes"
   ],
+  "main": "index.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.7.1",
     "app-route": "PolymerElements/app-route#^0.9.3"

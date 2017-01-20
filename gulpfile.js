@@ -31,12 +31,10 @@ let paths = {
         ]
     },
 
-    public: {
-        folder: './public',
-        index: 'index.html'
-    },
-
-    tmp: './tmp'
+    polymer: {
+        src: './polymer/src',
+        images: './polymer/images'
+    }
 };
 
 /**
@@ -61,18 +59,7 @@ let options = {
  * CLEAN
  */
 gulp.task('clean', (cb) => {
-    return del(paths.public.folder, cb);
-});
-
-gulp.task('dependencies:js', () => {
-    return gulp.src(paths.dependencies.js)
-        .pipe($.concat('dependencies.js'))
-        .pipe(gulp.dest(paths.public.folder + '/vendor'));
-});
-
-gulp.task('dependencies:html', () => {
-    return gulp.src(paths.dependencies.html)
-        .pipe(gulp.dest(paths.public.folder + '/vendor'));
+    return del([paths.polymer.src, paths.polymer.images], cb);
 });
 
 /**
@@ -82,11 +69,11 @@ gulp.task('dependencies:html', () => {
  * Includes scripts which get transpiled with babel if filterd.
  * https://github.com/jstransformers/jstransformer-babel
  */
-gulp.task('app', ['dependencies:js', 'dependencies:html'], () => {
+gulp.task('app', () => {
     return gulp.src(paths.src.pug)
         .pipe($.pug(options.pug))
         .on('error', (e) => console.log(e))
-        .pipe(gulp.dest(paths.public.folder))
+        .pipe(gulp.dest(paths.polymer.src))
         .pipe(browserSync.reload({
             stream: true
         }));
@@ -100,7 +87,7 @@ gulp.task('styles', () => {
         .pipe($.sass().on('error', $.sass.logError))
         .pipe($.autoprefixer(options.autoprefixer))
         .pipe($.styleModules())
-        .pipe(gulp.dest(paths.public.folder))
+        .pipe(gulp.dest(paths.polymer.src))
         .pipe(browserSync.reload({
             stream: true
         }));
@@ -113,9 +100,8 @@ gulp.task('styles', () => {
  */
 gulp.task('browserSync', () => {
     browserSync.init({
-        server: {
-            baseDir: paths.public.folder,
-            index: paths.public.index
+        proxy: {
+            target: "http://localhost:8080",
         },
         open: false,
         reloadOnRestart: true
@@ -124,10 +110,10 @@ gulp.task('browserSync', () => {
 
 
 gulp.task('default', () => {
-    runSequence('clean', 'app', 'styles', 'browserSync');
+    runSequence('clean', 'app', 'styles');
 });
 
-gulp.task('watch', ['default'], () => {
+gulp.task('watch', ['default', 'browserSync'], () => {
     gulp.watch(paths.src.pug, ['app']);
     gulp.watch(paths.src.js, ['app']);
     gulp.watch(paths.src.scss, ['styles']);
