@@ -16,6 +16,7 @@ let paths = {
             './src/**/*.pug',
             '!./src/**/*.mixin.pug'
         ],
+        js: './src/**/*.js',
         scss: './src/**/*.scss',
         images: './src/images/**/*'
     },
