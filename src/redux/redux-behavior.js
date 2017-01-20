@@ -4,7 +4,7 @@ Polymer({
         state: {
             type: Object,
             value: {
-                text: 'initial value'
+                text: 'initial-value'
             }
         }
     },

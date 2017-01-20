@@ -1,5 +1,6 @@
 Polymer({
     is: 'home-page',
+    behaviors: [Redux.StateReceiverBehavior],
     properties: {
         who: {
             type: String,
@@ -8,6 +9,12 @@ Polymer({
         fromState: {
             linkState: 'state.text'
         },
+        compState: {
+            type: String,
+            computed: 'computeState(fromState)'
+        }
     },
-    behaviors: [Redux.StateReceiverBehavior]
+    computeState(text) {
+        return 'foo ' + text
+    }
 });
