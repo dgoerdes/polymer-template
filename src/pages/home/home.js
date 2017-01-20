@@ -1,3 +1,9 @@
 Polymer({
-    is: 'home-page'
+    is: 'home-page',
+    properties: {
+        who: {
+            type: String,
+            value: 'World'
+        }
+    }
 });
