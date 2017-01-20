@@ -4,6 +4,10 @@ Polymer({
         who: {
             type: String,
             value: 'World'
-        }
-    }
+        },
+        fromState: {
+            linkState: 'state.text'
+        },
+    },
+    behaviors: [Redux.StateReceiverBehavior]
 });
