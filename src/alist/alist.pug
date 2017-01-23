@@ -3,6 +3,8 @@ link(rel="import" href="../../../bower_components/polymer/polymer.html")
 dom-module(id="a-list")
     template
         h2 A list
+        input(placeholder='inter' on-keypress='handleKeypress')
+        br
         button(on-click='updateEntries') update the entries
         button(on-click='updateEntriesAsync') update the entries async
         ul

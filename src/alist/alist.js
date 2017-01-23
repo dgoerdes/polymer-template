@@ -38,6 +38,10 @@ Polymer({
     incrementEntry(event) {
         this.dispatch('incrementID', event.model.item.id);
     },
+    handleKeypress(event) {
+        if (event.charCode !== 13) { return; }
+        this.dispatch('addEntry', event.target.value);
+    },
     actions: {
         updateEntries() {
             return {
@@ -50,5 +54,11 @@ Polymer({
                 value,
             };
         },
+        addEntry(value) {
+            return {
+                type: 'ADD_ENTRY',
+                value,
+            };
+        }
     },
 });
