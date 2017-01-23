@@ -2,6 +2,6 @@
 {
   "files.exclude": {
     "**/.git": true,
-    "**/polymer": true
+    "**/polymer/src/*": true
   }
 }
