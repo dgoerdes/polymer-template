@@ -2,7 +2,7 @@ Polymer({
     is: 'home-page',
     behaviors: [ReduxBehavior],
     created() {
-        console.log('home state', this.getState())
+        console.log('home was created', this.getState())
     },
     properties: {
         who: {
@@ -11,11 +11,12 @@ Polymer({
         },
         fromState: {
             type: String,
-            statePath: 'text'
+            statePath: 'text',
+            readOnly: true,
         },
         compState: {
             type: String,
-            computed: 'computeState(fromState)'
+            computed: 'computeState(fromState)',
         },
     },
     computeState(text) {
