@@ -10,12 +10,30 @@ Polymer({
             statePath: 'entries',
             readOnly: true,
         },
-        // entries: {
-        //     type: Array,
-        //     computed: 'computeState(fromState)',
-        // },
+        entriyString: {
+            type: String,
+            readOnly: true,
+            computed: 'computeEntries(entries)',
+        },
     },
-    // computeState(text) {
-    //     return 'foo + ' + text
-    // },
+    computeEntries(entries) {
+        console.log('compute entries', entries)
+        return entries.join(' -- ')
+    },
+    updateEntries(event) {
+        this.dispatch('updateEntries', 42);
+    },
+    updateEntriesAsync(event) {
+        setTimeout(() => {
+            this.dispatch('updateEntries', 666);
+        }, 1000);
+    },
+    actions: {
+        updateEntries(value) {
+            return {
+                type: 'UPDATE_ENTRIES',
+                value,
+            };
+        },
+    },
 });

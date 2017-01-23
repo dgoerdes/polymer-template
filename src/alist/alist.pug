@@ -3,12 +3,15 @@ link(rel="import" href="../../../bower_components/polymer/polymer.html")
 dom-module(id="a-list")
     template
         h2 A list
+        button(on-click='updateEntries') update the entries
+        button(on-click='updateEntriesAsync') update the entries async
         ul
           template(is='dom-repeat' items='{{entries}}')
             li
               span An item: {{item}}
 
         p A list with {{entries.length}} entries!
+        p This is a computed entry string: {{entriyString}}
 
     script
         include:babel ./alist.js
