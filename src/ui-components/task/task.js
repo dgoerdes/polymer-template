@@ -27,6 +27,6 @@ Polymer({
     },
 
     removeTask: function(event) {
-        this.fire('taskList:removeTask', {taskId: this.id});
+        this.fire('task:removed', {taskId: this.id});
     }
 });

@@ -16,7 +16,7 @@ Polymer({
     },
 
     ready: function() {
-        this.addEventListener('taskList:removeTask', this.removeTask);
+        this.addEventListener('task:removed', this.removeTask);
     },
 
     addTask: function() {
