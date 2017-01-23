@@ -8,10 +8,12 @@ dom-module(id="a-list")
         button(on-click='updateEntries') update the entries
         button(on-click='updateEntriesAsync') update the entries async
         ul
-          template(is='dom-repeat' items='{{entries}}')
-            li
-              span An item: {{item.value}}
-              button(on-click='incrementEntry') Increment
+            template(is='dom-repeat' items='{{entries}}')
+                li
+                    span An item: [[item.value]], with friend: [[item.friend]]
+                    button(on-click='incrementEntry') Increment
+                    input(on-keypress='handleSetFriendKeypress' placeholder="[[arrayItem(entries.*, index, 'value')]]")
+                    button(on-click='setFriend') Set Friend
 
         p A list with {{entries.length}} entries!
         p This is a computed entry string: {{entriyString}}
