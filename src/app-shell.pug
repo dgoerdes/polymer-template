@@ -1,11 +1,13 @@
 link(rel="import" href="../../../bower_components/polymer/polymer.html")
 link(rel="import" href="redux/redux-store.html")
 link(rel="import" href="pages/home/home.html")
+link(rel="import" href="alist/alist.html")
 
 dom-module(id="app-shell")
     template
         redux-store
         home-page
+        a-list
 
     script
         include:babel ./app-shell.js

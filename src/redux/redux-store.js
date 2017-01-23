@@ -1,4 +1,7 @@
-const initialState = {text: 'initial-value'};
+const initialState = {
+  text: 'initial-value',
+  entries: ['foo', 'bar', 'baz'],
+};
 
 const reducer = (state = initialState, action) => state;
 

@@ -1,0 +1,14 @@
+link(rel="import" href="../../../bower_components/polymer/polymer.html")
+
+dom-module(id="a-list")
+    template
+        h2 A list
+        ul
+          template(is='dom-repeat' items='{{entries}}')
+            li
+              span An item: {{item}}
+
+        p A list with {{entries.length}} entries!
+
+    script
+        include:babel ./alist.js
