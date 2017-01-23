@@ -122,5 +122,5 @@ gulp.task('default', () => {
 gulp.task('watch', ['default', 'browserSync'], () => {
     gulp.watch(paths.src.pug, ['app']);
     gulp.watch(paths.src.js, ['app']);
-    gulp.watch(paths.src.scss, ['styles']);
+    gulp.watch(paths.src.scss, ['app']);
 });
