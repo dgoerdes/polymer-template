@@ -22,18 +22,14 @@ let paths = {
 
     dependencies: {
         js: [
-            'bower_components/webcomponentsjs/webcomponents-lite.js'
-        ],
-        html: [
-            'bower_components/polymer/polymer.html',
-            'bower_components/polymer/polymer-mini.html',
-            'bower_components/polymer/polymer-micro.html'
+            'node_modules/lodash/lodash.js'
         ]
     },
 
     polymer: {
         src: './polymer/src',
-        images: './polymer/images'
+        images: './polymer/images',
+        vendor: './polymer/vendor'
     }
 };
 
@@ -60,6 +56,15 @@ let options = {
  */
 gulp.task('clean', (cb) => {
     return del([paths.polymer.src, paths.polymer.images], cb);
+});
+
+/**
+ * DEPENDENCIES
+ * Copy vendor dependencies.
+ */
+gulp.task('dependencies', () => {
+    return gulp.src(paths.dependencies.js)
+        .pipe(gulp.dest(paths.polymer.vendor));
 });
 
 /**
