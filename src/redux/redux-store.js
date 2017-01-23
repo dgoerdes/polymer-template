@@ -1,18 +1,30 @@
 const initialState = {
   text: 'initial-value',
-  entries: ['foo', 'bar', 'baz'],
+  entries: [
+    {value: 'foo', id: 0, prio: 2},
+    {value: 'bar', id: 1, prio: 1},
+    {value: 'baz', id: 2, prio: 0},
+  ],
 };
 
 function reducer(state = initialState, action) {
   switch (action.type) {
     case 'UPDATE_ENTRIES':
       const willUpdate = Math.random() >= 0.5;
-      console.log('update entries in reducer?', action.value, willUpdate);
+      console.log('update entries in reducer?', willUpdate);
       if (willUpdate) {
         const index = Math.round(Math.random() * 2);
-        const value = `${parseFloat(`${Math.random()}`).toFixed(3)}`;
-        return R.assocPath(['entries'], R.update(index, value, state.entries), state);
+        const value = R.assocPath(['value'], `${parseFloat(`${Math.random()}`).toFixed(3)}`, state.entries[index]);
+        state.entries = R.update(index, value, state.entries);
       }
+      break;
+
+    case 'INCREMENT_ID':
+      const id = action.value
+      console.log('increment ID in reducer?', id);
+      const index = state.entries.findIndex((entry) => entry.id === id);
+      const value = R.assocPath(['prio'], R.pipe(R.prop('prio'), R.inc)(state.entries[index]), state.entries[index]);
+      state.entries = R.update(index, value, state.entries);
       break;
   }
   return state;

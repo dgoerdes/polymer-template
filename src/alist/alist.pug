@@ -8,7 +8,8 @@ dom-module(id="a-list")
         ul
           template(is='dom-repeat' items='{{entries}}')
             li
-              span An item: {{item}}
+              span An item: {{item.value}}
+              button(on-click='incrementEntry') Increment
 
         p A list with {{entries.length}} entries!
         p This is a computed entry string: {{entriyString}}
