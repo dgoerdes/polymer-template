@@ -7,7 +7,8 @@ Polymer({
             value: 0
         },
         taskname: {
-            type: String
+            type: String,
+            value: ''
         },
         tasks: {
             type: Array,
@@ -19,7 +20,8 @@ Polymer({
         this.addEventListener('task:removed', this.removeTask);
     },
 
-    addTask: function() {
+    addTask: function(event) {
+
         const task = {
             id: this.id++,
             name: this.taskname,
@@ -29,6 +31,7 @@ Polymer({
 
         this.push('tasks', task);
         this.taskname = '';
+        event.preventDefault();
     },
 
     removeTask: function(event) {

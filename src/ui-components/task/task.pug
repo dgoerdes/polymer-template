@@ -2,13 +2,15 @@ link(rel="import" href="../../../bower_components/polymer/polymer.html")
 
 dom-module(id="dg-task")
     template
-        li
-            button(on-click="lowerPriority") - 
-            span [[priority]] - 
-            span [[name]] 
-            button(on-click="higherPriority") + 
-            span [[status]] 
-            button(on-click="removeTask") remove
+        style
+            include:sass ./task.scss
+
+        button.lower(on-click="lowerPriority") -
+        button.higher(on-click="higherPriority") +
+        span.name [[name]] 
+        span.priority ([[priority]]) - 
+        span.status [[status]]
+        button.remove(on-click="removeTask") X
 
     script
         include:babel ./task.js

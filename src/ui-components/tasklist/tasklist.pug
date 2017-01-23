@@ -5,10 +5,14 @@ script(src="../../../vendor/lodash.js")
 
 dom-module(id="dg-tasklist")
     template
+        style
+            include:sass ./tasklist.scss
+
         h2 The Task List
-        label(for="taskInput") Add a Task
-        input(type="text", name="taskInput", id="taskInput" value="{{taskname::input}}")
-        button(on-click="addTask") add
+        form(on-submit="addTask")
+            label(for="taskInput") Taskname:
+            input(type="text", name="taskInput", id="taskInput" value="{{taskname::input}}")
+            button add task
 
         ul
             template(is="dom-repeat" items="{{tasks}}")
