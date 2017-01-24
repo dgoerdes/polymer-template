@@ -56,25 +56,32 @@ Polymer({
         this.dispatch('addEntry', { name: event.target.value });
     },
     handleSetFriendKeypress(event) {
+        event.model.item.temp = event.target.value
         if (event.charCode !== 13) {
-            event.model.item.temp = event.target.value + event.key;
+            event.model.item.temp += event.key;
         } else {
             this.setFriend(event);
         };
     },
     setFriend(event) {
+        const name = event.model.item.temp;
+        console.log(name)
+        if (name && name.length >= 6) {
+            alert('Name must be less than seven characters long.');
+            return;
+        }
         const cbID = `${Math.random().toString(36).substr(2, 16)}`;
         const cb = ({detail: {error}}) => {
             document.removeEventListener(cbID, cb);
             if (error) {
-                console.error('set friend', error.message);
+                console.error('Reducer error - set friend', error.message);
                 alert('Name must be longer than 3 characters.');
                 return;
             }
             event.target.value = '';
         };
         document.addEventListener(cbID, cb);
-        this.dispatch('setFriend', { id: event.model.item.id, name: event.model.item.temp, cbID });
+        this.dispatch('setFriend', { id: event.model.item.id, name, cbID });
     },
     /*
         Actions
