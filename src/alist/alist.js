@@ -51,13 +51,15 @@ Polymer({
         this.dispatch('incrementID', { id: event.model.item.id });
     },
     addEntry(event) {
-        if (event.charCode !== 13) { return; }
+        const code = event.keyCode || event.which;
+        if (code !== 13) { return; }
         event.target.value = event.target.value.toUpperCase()
         this.dispatch('addEntry', { name: event.target.value });
     },
     setFriendKeypress(event) {
-        event.model.item.temp = event.target.value
-        if (event.charCode !== 13) {
+        event.model.item.temp = event.target.value;
+        const code = event.keyCode || event.which;
+        if (code !== 13) {
             event.model.item.temp += event.key;
         } else {
             this.setFriend(event);
@@ -66,15 +68,14 @@ Polymer({
     setFriend(event) {
         const name = event.model.item.temp;
         if (name && name.length >= 6) {
-            alert('Name must be less than seven characters long.');
+            alert('Action error - Name must be less than seven characters long.');
             return;
         }
         const cbID = `${Math.random().toString(36).substr(2, 16)}`;
         const cb = ({detail: {error}}) => {
             document.removeEventListener(cbID, cb);
             if (error) {
-                console.error('Reducer error - set friend', error.message);
-                alert('Name must be longer than 3 characters.');
+                alert(`Reducer error - set friend : ${error.message}`);
                 return;
             }
             event.target.value = '';

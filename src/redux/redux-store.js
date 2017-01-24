@@ -1,19 +1,28 @@
 let store;
 
+let tickerTimer
+let fullTickerTimer
 function nextActionPredicate(state) {
+    // Redux always requires setTimeout().
     if (state.ticker >= 3) {
         setTimeout(() => {
             store.dispatch({type: 'RESET_TICKER'});
-        }, 0); // Redux requires setTimeout().
-    } else {
-        setTimeout(() => {
-            store.dispatch({type: 'TICK'});
-        }, 1000);
+        }, 0);
     }
+    tickerTimer = tickerTimer || setTimeout(() => {
+        tickerTimer = undefined;
+        store.dispatch({type: 'TICK'});
+    }, 1000);
+
+    fullTickerTimer = fullTickerTimer || setTimeout(() => {
+        fullTickerTimer = undefined;
+        store.dispatch({type: 'FULL_TICK'});
+    }, 1000);
 }
 
 const initialState = {
     ticker: 0,
+    fullTicker: 0,
     entries: [
         { name: 'foo', id: 0, prio: 2, friend: null },
         { name: 'bar', id: 1, prio: 1, friend: undefined },
@@ -31,7 +40,7 @@ function reducer(state = initialState, {type, payload = {}}) {
             console.log('update entries in reducer?', willUpdate);
             if (willUpdate) {
                 const index = Math.round(Math.random() * state.entries.length);
-                const value = R.assocPath(['value'], `${parseFloat(`${Math.random()}`).toFixed(3)}`, state.entries[index]);
+                const value = R.assocPath(['name'], `${parseFloat(`${Math.random()}`).toFixed(3)}`, state.entries[index]);
                 state.entries = R.update(index, value, state.entries);
             }
             break;
@@ -57,7 +66,7 @@ function reducer(state = initialState, {type, payload = {}}) {
 
         case 'SET_FRIEND': {
             if (!payload.name || payload.name.length <= 2) {
-                error = new Error('Name too short');
+                error = new Error('Name must be at least three characters long.');
                 break;
             }
             console.log('add friend in reducer?', payload.id);
@@ -77,6 +86,11 @@ function reducer(state = initialState, {type, payload = {}}) {
 
         case 'RESET_TICKER': {
             state.ticker = 0;
+            break;
+        }
+
+        case 'FULL_TICK': {
+            state.fullTicker += 1;
             break;
         }
     }

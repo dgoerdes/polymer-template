@@ -18,8 +18,13 @@ Polymer({
             type: String,
             computed: 'tickerText(ticker)',
         },
+        fullTicker: {
+            type: Number,
+            statePath: 'fullTicker',
+            readOnly: true,
+        },
     },
     tickerText(ticker) {
-        return 'foo + ' + ticker
+        return `foo::${ticker}||`
     },
 });
