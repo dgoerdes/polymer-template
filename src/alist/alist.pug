@@ -3,7 +3,7 @@ link(rel="import" href="../../../bower_components/polymer/polymer.html")
 dom-module(id="a-list")
     template
         h2 A list
-        input(placeholder='inter' on-keypress='handleKeypress')
+        input(placeholder='inter' on-keypress='addEntry')
         br
         button(on-click='updateEntries') update the entries
         button(on-click='updateEntriesAsync') update the entries async
@@ -12,7 +12,7 @@ dom-module(id="a-list")
                 li
                     span An item: [[item.name]], with friend: [[item.friend]]
                     button(on-click='incrementEntry') Increment
-                    input(on-keypress='handleSetFriendKeypress' placeholder="[[arrayItem(entries.*, index, 'value')]]")
+                    input(on-keypress='setFriendKeypress' placeholder="[[arrayItem(entries.*, index, 'value')]]")
                     button(on-click='setFriend') Set Friend
 
         p A list with {{entries.length}} entries!

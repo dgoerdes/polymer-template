@@ -51,11 +51,12 @@ Polymer({
     incrementEntry(event) {
         this.dispatch('incrementID', { id: event.model.item.id });
     },
-    handleKeypress(event) {
+    addEntry(event) {
         if (event.charCode !== 13) { return; }
+        event.target.value = event.target.value.toUpperCase()
         this.dispatch('addEntry', { name: event.target.value });
     },
-    handleSetFriendKeypress(event) {
+    setFriendKeypress(event) {
         event.model.item.temp = event.target.value
         if (event.charCode !== 13) {
             event.model.item.temp += event.key;
@@ -65,7 +66,6 @@ Polymer({
     },
     setFriend(event) {
         const name = event.model.item.temp;
-        console.log(name)
         if (name && name.length >= 6) {
             alert('Name must be less than seven characters long.');
             return;
