@@ -1,14 +1,17 @@
 const initialState = {
     text: 'initial-value',
     entries: [
-        { value: 'foo', id: 0, prio: 2, friend: null },
-        { value: 'bar', id: 1, prio: 1, friend: undefined },
-        { value: 'baz', id: 2, prio: 0 },
+        { name: 'foo', id: 0, prio: 2, friend: null },
+        { name: 'bar', id: 1, prio: 1, friend: undefined },
+        { name: 'baz', id: 2, prio: 0 },
     ],
 };
 
-function reducer(state = initialState, action) {
-    switch (action.type) {
+function reducer(state = initialState, {type, payload = {}}) {
+    const cbID = payload.cbID;
+    let error;
+
+    switch (type) {
         case 'UPDATE_ENTRIES': {
             const willUpdate = Math.random() >= 0.5;
             console.log('update entries in reducer?', willUpdate);
@@ -21,7 +24,7 @@ function reducer(state = initialState, action) {
         }
 
         case 'INCREMENT_ID': {
-            const id = action.value
+            const id = payload.id;
             console.log('increment ID in reducer?', id);
             const index = state.entries.findIndex((entry) => entry.id === id);
             state.entries = R.pipe(
@@ -33,21 +36,31 @@ function reducer(state = initialState, action) {
 
         case 'ADD_ENTRY': {
             console.log('add entry in reducer?')
-            state.entries = state.entries.concat({ value: action.value, id: state.entries.length + 1, prio: 0 });
+            const name = payload.name;
+            state.entries = state.entries.concat({ name, id: state.entries.length + 1, prio: 0 });
             break;
         }
 
         case 'SET_FRIEND': {
-            console.log('add friend in reducer?', action.value.id);
-            const index = state.entries.findIndex((entry) => entry.id === action.value.id);
+            if (!payload.name || payload.name.length <= 2) {
+                error = new Error('Name too short');
+                break;
+            }
+            console.log('add friend in reducer?', payload.id);
+            const index = state.entries.findIndex((entry) => entry.id === payload.id);
             state.entries = R.pipe(
-                R.assoc('friend', action.value.temp),
+                R.assoc('friend', payload.name),
                 R.dissoc('temp'),
                 R.update(index, R.__, state.entries)
             )(state.entries[index])
             break;
         }
     }
+    if (cbID) {
+        const ev = new CustomEvent(cbID, { detail: { error } });
+        document.dispatchEvent(ev);
+    }
+
     return state;
 }
 

@@ -30,7 +30,7 @@ Polymer({
             .map((item, index) => Object.assign(item, { index }));
     },
     computeString(entries) {
-        return entries.map((entry) => `${entry.value}:${entry.friend || '|'}`).join(' -- ');
+        return entries.map((entry) => `${entry.name}:${entry.friend || '|'}`).join(' -- ');
     },
     arrayItem(change, index, path) {
         // this.get(path, root) returns a value for a path
@@ -49,24 +49,32 @@ Polymer({
         }, 1000);
     },
     incrementEntry(event) {
-        this.dispatch('incrementID', event.model.item.id);
+        this.dispatch('incrementID', { id: event.model.item.id });
     },
     handleKeypress(event) {
         if (event.charCode !== 13) { return; }
-        this.dispatch('addEntry', event.target.value);
+        this.dispatch('addEntry', { name: event.target.value });
     },
     handleSetFriendKeypress(event) {
-        if (event.charCode === 13) {
-            console.log('set friend button by keypress', event.model.item);
-            this.dispatch('setFriend', event.model.item);
-            return;
-        }
-        event.model.item.temp = event.target.value + event.key;
-        console.log('setFriend keypress', event, event.target.value, event.model.item)
+        if (event.charCode !== 13) {
+            event.model.item.temp = event.target.value + event.key;
+        } else {
+            this.setFriend(event);
+        };
     },
     setFriend(event) {
-        console.log('set friend button', event.model.item);
-        this.dispatch('setFriend', event.model.item);
+        const cbID = `${Math.random().toString(36).substr(2, 16)}`;
+        const cb = ({detail: {error}}) => {
+            document.removeEventListener(cbID, cb);
+            if (error) {
+                console.error('set friend', error.message);
+                alert('Name must be longer than 3 characters.');
+                return;
+            }
+            event.target.value = '';
+        };
+        document.addEventListener(cbID, cb);
+        this.dispatch('setFriend', { id: event.model.item.id, name: event.model.item.temp, cbID });
     },
     /*
         Actions
@@ -77,22 +85,22 @@ Polymer({
                 type: 'UPDATE_ENTRIES',
             };
         },
-        incrementID(value) {
+        incrementID(payload) {
             return {
                 type: 'INCREMENT_ID',
-                value,
+                payload,
             };
         },
-        addEntry(value) {
+        addEntry(payload) {
             return {
                 type: 'ADD_ENTRY',
-                value,
+                payload,
             };
         },
-        setFriend(value) {
+        setFriend(payload) {
             return {
                 type: 'SET_FRIEND',
-                value,
+                payload,
             };
         },
     },

@@ -10,7 +10,7 @@ dom-module(id="a-list")
         ul
             template(is='dom-repeat' items='{{entries}}')
                 li
-                    span An item: [[item.value]], with friend: [[item.friend]]
+                    span An item: [[item.name]], with friend: [[item.friend]]
                     button(on-click='incrementEntry') Increment
                     input(on-keypress='handleSetFriendKeypress' placeholder="[[arrayItem(entries.*, index, 'value')]]")
                     button(on-click='setFriend') Set Friend
