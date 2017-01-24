@@ -47,6 +47,9 @@ Polymer({
             this.dispatch('updateEntries');
         }, 1000);
     },
+    updateEntriesAsyncThunk() {
+        this.dispatch('updateEntriesThunk');
+    },
     incrementEntry(event) {
         this.dispatch('incrementID', { id: event.model.item.id });
     },
@@ -90,6 +93,15 @@ Polymer({
         updateEntries() {
             return {
                 type: 'UPDATE_ENTRIES',
+            };
+        },
+        updateEntriesThunk() {
+            return (dispatch) => {
+                setTimeout(() => {
+                    dispatch({
+                        type: 'UPDATE_ENTRIES',
+                    });
+                }, 1000);
             };
         },
         incrementID(payload) {

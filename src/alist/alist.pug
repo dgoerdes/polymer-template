@@ -6,7 +6,10 @@ dom-module(id="a-list")
         input(placeholder='item name' on-keypress='addEntry')
         br
         button(on-click='updateEntries') update the entries
+        br
         button(on-click='updateEntriesAsync') update the entries async
+        br
+        button(on-click='updateEntriesAsyncThunk') update the entries async thunk middleware
         ul
             template(is='dom-repeat' items='{{entries}}')
                 li
