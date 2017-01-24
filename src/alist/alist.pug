@@ -12,7 +12,7 @@ dom-module(id="a-list")
                 li
                     span An item: [[item.name]], with friend: [[item.friend]]
                     button(on-click='incrementEntry') Increment
-                    input(on-keypress='setFriendKeypress' placeholder="[[arrayItem(entries.*, index, 'value')]]")
+                    input(on-keypress='setFriendKeypress' placeholder="[[arrayItem(entries.*, index, 'name')]]")
                     button(on-click='setFriend') Set Friend
 
         p A list with {{entries.length}} entries!
