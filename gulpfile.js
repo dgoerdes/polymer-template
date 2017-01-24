@@ -26,7 +26,8 @@ let paths = {
             'node_modules/rxjs/bundles/Rx.js',
             'node_modules/ramda/dist/ramda.js',
             'node_modules/redux/dist/redux.js',
-            'node_modules/redux-thunk/dist/redux-thunk.js'
+            'node_modules/redux-thunk/dist/redux-thunk.js',
+            'node_modules/setimmediate/setimmediate.js'
         ]
     },
 

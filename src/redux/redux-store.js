@@ -5,9 +5,9 @@ let fullTickerTimer
 function nextActionPredicate(state) {
     // Redux always requires setTimeout().
     if (state.ticker >= 3) {
-        setTimeout(() => {
+        setImmediate(() => {
             store.dispatch({type: 'RESET_TICKER'});
-        }, 0);
+        });
     }
     tickerTimer = tickerTimer || setTimeout(() => {
         tickerTimer = undefined;
