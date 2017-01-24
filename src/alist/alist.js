@@ -3,7 +3,6 @@ Polymer({
     behaviors: [ReduxBehavior],
     created() {
         console.log('a list was created', this.getState());
-        this.getState = null;
     },
     properties: {
         _entries: {

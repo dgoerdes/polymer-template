@@ -9,17 +9,17 @@ Polymer({
             type: String,
             value: 'World'
         },
-        fromState: {
-            type: String,
-            statePath: 'text',
+        ticker: {
+            type: Number,
+            statePath: 'ticker',
             readOnly: true,
         },
         compState: {
             type: String,
-            computed: 'computeState(fromState)',
+            computed: 'tickerText(ticker)',
         },
     },
-    computeState(text) {
-        return 'foo + ' + text
+    tickerText(ticker) {
+        return 'foo + ' + ticker
     },
 });

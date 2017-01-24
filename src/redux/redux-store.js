@@ -1,5 +1,19 @@
+let store;
+
+function nextActionPredicate(state) {
+    if (state.ticker >= 3) {
+        setTimeout(() => {
+            store.dispatch({type: 'RESET_TICKER'});
+        }, 0); // Redux requires setTimeout().
+    } else {
+        setTimeout(() => {
+            store.dispatch({type: 'TICK'});
+        }, 1000);
+    }
+}
+
 const initialState = {
-    text: 'initial-value',
+    ticker: 0,
     entries: [
         { name: 'foo', id: 0, prio: 2, friend: null },
         { name: 'bar', id: 1, prio: 1, friend: undefined },
@@ -55,17 +69,25 @@ function reducer(state = initialState, {type, payload = {}}) {
             )(state.entries[index])
             break;
         }
+
+        case 'TICK': {
+            state.ticker += 1;
+            break;
+        }
+
+        case 'RESET_TICKER': {
+            state.ticker = 0;
+            break;
+        }
     }
     if (cbID) {
-        const ev = new CustomEvent(cbID, { detail: { error } });
-        document.dispatchEvent(ev);
+        document.dispatchEvent(new CustomEvent(cbID, { detail: { error } }));
     }
+
+    nextActionPredicate(state);
 
     return state;
 }
 
-const store = Redux.createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-
+store = Redux.createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 window.ReduxBehavior = PolymerRedux(store);
-
-console.log('redux-store', window.ReduxBehavior);
