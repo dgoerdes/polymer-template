@@ -24,19 +24,22 @@ Polymer({
     /*
         Computed Functions
     */
+    arrayItem(change, index, path) {
+        // this.get(path, root) returns a value for a path
+        // relative to a root object.
+        return this.get(path, change.base[index]);
+    },
     computeEntries(entries) {
         let result = R.sortBy(R.prop('prio'), entries);
         result = result.map((item, index) => Object.assign(item, { index, isLast: false }));
         result[result.length - 1].isLast = true;
         return result;
     },
+    friendInput({error, temp}) {
+        return error ? temp : '';
+    },
     computeString(entries) {
         return entries.map((entry) => `${entry.name}:${entry.friend || '|'}`).join(' -- ');
-    },
-    arrayItem(change, index, path) {
-        // this.get(path, root) returns a value for a path
-        // relative to a root object.
-        return this.get(path, change.base[index]);
     },
     /*
         Event Handlers
@@ -76,17 +79,7 @@ Polymer({
             alert('Action error - Name must be less than seven characters long.');
             return;
         }
-        const cbID = `${Math.random().toString(36).substr(2, 16)}`;
-        const cb = ({detail: {error}}) => {
-            document.removeEventListener(cbID, cb);
-            if (error) {
-                alert(`Reducer error - set friend : ${error.message}`);
-                return;
-            }
-            event.target.value = '';
-        };
-        document.addEventListener(cbID, cb);
-        this.dispatch('setFriend', { id: event.model.item.id, name, cbID });
+        this.dispatch('setFriend', { id: event.model.item.id, name });
     },
     /*
         Actions

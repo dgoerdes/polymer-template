@@ -20,7 +20,7 @@ dom-module(id="a-list")
                     br
                     button(on-click='incrementEntry' disabled='[[item.isLast]]') Increment
                     br
-                    input(on-keypress='setFriendKeypress' placeholder="[[arrayItem(entries.*, index, 'name')]]")
+                    input(on-keypress='setFriendKeypress' placeholder="[[arrayItem(entries.*, index, 'name')]]" value='[[friendInput(item)]]')
                     button(on-click='setFriend') Set Friend
 
         p A list with {{entries.length}} entries!

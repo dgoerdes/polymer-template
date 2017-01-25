@@ -31,7 +31,6 @@ const initialState = {
 };
 
 function reducer(state = initialState, {type, payload = {}}) {
-    const cbID = payload.cbID;
     let error;
 
     switch (type) {
@@ -59,16 +58,19 @@ function reducer(state = initialState, {type, payload = {}}) {
         }
 
         case 'SET_FRIEND': {
-            if (!payload.name || payload.name.length <= 2) {
-                error = new Error('Name must be at least three characters long.');
-                break;
-            }
             const index = state.entries.findIndex((entry) => entry.id === payload.id);
-            state.entries = R.pipe(
-                R.assoc('friend', payload.name),
-                R.dissoc('temp'),
-                R.update(index, R.__, state.entries)
-            )(state.entries[index])
+            if (!payload.name || payload.name.length <= 2) {
+                state.entries = R.pipe(
+                    R.assoc('error', new Error('Name must be at least three characters long.')),
+                    R.update(index, R.__, state.entries)
+                )(state.entries[index]);
+            } else {
+                state.entries = R.pipe(
+                    R.assoc('friend', payload.name),
+                    R.dissoc('temp'),
+                    R.update(index, R.__, state.entries)
+                )(state.entries[index]);
+            }
             break;
         }
 
@@ -86,9 +88,6 @@ function reducer(state = initialState, {type, payload = {}}) {
             state.fullTicker += 1;
             break;
         }
-    }
-    if (cbID) {
-        document.dispatchEvent(new CustomEvent(cbID, { detail: { error } }));
     }
 
     nextActionPredicate(state);
