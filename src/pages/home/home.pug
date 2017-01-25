@@ -1,12 +1,16 @@
 link(rel="import" href="../../../bower_components/polymer/polymer.html")
 
 dom-module(id="home-page")
+    style
+        include ./home.scss
+
     template
-        h1 This is POLYMER, hello {{who}}!
-        h2 Big Ticker: {{fullTicker}}.
-        h2 Small Ticker: {{ticker}}.
-        p Computed ticker text: {{compState}}
-        p Page: Home
+        div.foo
+            h1 This is POLYMER, hello {{who}}!
+            h2 Big Ticker: {{fullTicker}}.
+            h2 Small Ticker: {{ticker}}.
+            p Computed ticker text: {{compState}}
+            p.redder Page: Home
 
     script
         include:babel ./home.js

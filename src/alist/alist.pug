@@ -1,8 +1,11 @@
 link(rel="import" href="../../../bower_components/polymer/polymer.html")
 
 dom-module(id="a-list")
+    style
+        include ./alist.scss
+
     template
-        h2 A list
+        h2.foo A list
         input(placeholder='item name' on-keypress='addEntry')
         br
         button(on-click='updateEntries') update the entries
@@ -12,7 +15,7 @@ dom-module(id="a-list")
         button(on-click='updateEntriesAsyncThunk') update the entries async thunk middleware
         ul
             template(is='dom-repeat' items='{{entries}}')
-                li
+                li(class='entry')
                     span An item: [[item.name]], priority [[item.prio]], with friend: [[item.friend]]
                     br
                     button(on-click='incrementEntry' disabled='[[item.isLast]]') Increment
