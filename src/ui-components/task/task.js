@@ -18,15 +18,15 @@ Polymer({
         }
     },
 
-    higherPriority: function(event) {
-        this.priority++
+    higherPriority: function (event) {
+        this.priority++;
     },
 
-    lowerPriority: function(event) {
-        this.priority--
+    lowerPriority: function (event) {
+        this.priority--;
     },
 
-    removeTask: function(event) {
+    removeTask: function (event) {
         this.fire('task:removed', {taskId: this.id});
     }
 });

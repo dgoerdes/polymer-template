@@ -5,7 +5,7 @@
   "scripts": {
     "start": "gulp watch",
     "lint:css": "sass-lint -v -q || true",
-    "lint:js": "eslint 'src/**/*.js' || true",
+    "lint:js": "gulp eslint",
     "lint": "npm-run-all lint:*"
   },
   "author": "Daniel Goerdes",
@@ -24,6 +24,7 @@
     "eslint-plugin-standard": "^2.0.1",
     "gulp": "^3.9.1",
     "gulp-concat": "^2.6.1",
+    "gulp-eslint": "^3.0.1",
     "gulp-imagemin": "^3.1.1",
     "gulp-load-plugins": "^1.4.0",
     "gulp-pug": "^3.2.0",

@@ -4,7 +4,7 @@ const del = require('del');
 const gulp = require('gulp');
 const $ = require('gulp-load-plugins')();
 const runSequence = require('run-sequence');
-const browserSync = require('browser-sync')
+const browserSync = require('browser-sync');
 
 
 /**
@@ -54,6 +54,11 @@ gulp.task('clean', (cb) => {
 });
 
 // TODO: Add linting for app JS
+gulp.task('eslint', (cb) => {
+    return gulp.src(paths.src.js)
+        .pipe($.eslint())
+        .pipe($.eslint.formatEach());
+});
 
 // TODO: Add linting for app SASS
 
@@ -64,7 +69,7 @@ gulp.task('clean', (cb) => {
  * Includes scripts which get transpiled with babel if filterd.
  * https://github.com/jstransformers/jstransformer-babel
  */
-gulp.task('app', () => {
+gulp.task('app', ['eslint'], () => {
     return gulp.src(paths.src.pug)
         .pipe($.pug(options.pug))
         .on('error', (e) => console.log(e))
@@ -92,8 +97,8 @@ gulp.task('images', () => {
 gulp.task('browserSync', () => {
     browserSync.init({
         server: {
-            baseDir: "./",
-            index: "index.html"
+            baseDir: './',
+            index: 'index.html'
         },
         open: false,
         reloadOnRestart: true

@@ -16,11 +16,11 @@ Polymer({
         }
     },
 
-    ready: function() {
+    ready: function () {
         this.addEventListener('task:removed', this.removeTask);
     },
 
-    addTask: function(event) {
+    addTask: function (event) {
 
         const task = {
             id: this.id++,
@@ -34,7 +34,7 @@ Polymer({
         event.preventDefault();
     },
 
-    removeTask: function(event) {
+    removeTask: function (event) {
         const itemIndex = _.findIndex(this.tasks, {id: parseInt(event.detail.taskId)});
         this.splice('tasks', itemIndex, 1);
     }

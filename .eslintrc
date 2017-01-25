@@ -1,0 +1,10 @@
+{
+    "extends": "emakinacee",
+    "globals": {
+        "_": true,
+        "Polymer": true
+    },
+    "rules": {
+        "arrow-parens": [2, "always"]
+    }
+}
