@@ -10,11 +10,31 @@
 
         <script>
             window.Polymer = {
-                dom: 'shadow'
+                dom: 'shadow',
+                lazyRegister: true
             };
-        </script>
 
-        <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+            (function () {
+                // load webcomponents polyfills
+                if ('registerElement' in document
+                    && 'import' in document.createElement('link')
+                    && 'content' in document.createElement('template')) {
+                    // platform is good!
+                } else {
+                    // polyfill the platform!
+                    var e = document.createElement('script');
+                    e.src = '/bower_components/webcomponentsjs/webcomponents-lite.min.js';
+                    document.head.appendChild(e);
+                }
+            })();
+
+            // load pre-caching service worker
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', function (e) {
+                    navigator.serviceWorker.register('/service-worker.js');
+                });
+            }
+        </script>
 
         <link rel="manifest" href="manifest.json">
         <link rel="import" href="dist/app-shell.html">
