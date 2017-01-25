@@ -12,12 +12,10 @@ Polymer({
         },
         entries: {
             type: Array,
-            readOnly: true,
             computed: 'computeEntries(_entries)',
         },
         entriyString: {
             type: String,
-            readOnly: true,
             computed: 'computeString(_entries)',
         },
     },
