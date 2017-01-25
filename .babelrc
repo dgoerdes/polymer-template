@@ -1,4 +1,10 @@
 {
-    "presets": ["es2015"],
-    "plugins": ["transform-object-rest-spread"]
+    "presets": [],
+    "plugins": [
+        "transform-es2015-modules-commonjs",
+        "transform-object-rest-spread",
+        "transform-async-generator-functions",
+        "syntax-trailing-function-commas",
+        "transform-async-to-generator"
+    ]
 }
