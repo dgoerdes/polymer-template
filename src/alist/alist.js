@@ -25,8 +25,10 @@ Polymer({
         Computed Functions
     */
     computeEntries(entries) {
-        return R.sortBy(R.prop('prio'), entries)
-            .map((item, index) => Object.assign(item, { index }));
+        let result = R.sortBy(R.prop('prio'), entries);
+        result = result.map((item, index) => Object.assign(item, { index, isLast: false }));
+        result[result.length - 1].isLast = true;
+        return result;
     },
     computeString(entries) {
         return entries.map((entry) => `${entry.name}:${entry.friend || '|'}`).join(' -- ');

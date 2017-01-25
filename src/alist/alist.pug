@@ -13,8 +13,10 @@ dom-module(id="a-list")
         ul
             template(is='dom-repeat' items='{{entries}}')
                 li
-                    span An item: [[item.name]], with friend: [[item.friend]]
-                    button(on-click='incrementEntry') Increment
+                    span An item: [[item.name]], priority [[item.prio]], with friend: [[item.friend]]
+                    br
+                    button(on-click='incrementEntry' disabled='[[item.isLast]]') Increment
+                    br
                     input(on-keypress='setFriendKeypress' placeholder="[[arrayItem(entries.*, index, 'name')]]")
                     button(on-click='setFriend') Set Friend
 
