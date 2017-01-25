@@ -21,16 +21,10 @@ let paths = {
         images: './src/images/**/*'
     },
 
-    dependencies: {
-        js: [
-            'node_modules/lodash/lodash.js'
-        ]
-    },
-
-    polymer: {
-        src: './polymer/src',
-        images: './polymer/images',
-        vendor: './polymer/vendor'
+    // Compiled app and optimized static files output.
+    dist: {
+        root: './dist',
+        images: './dist/images'
     }
 };
 
@@ -56,17 +50,12 @@ let options = {
  * CLEAN
  */
 gulp.task('clean', (cb) => {
-    return del([paths.polymer.src, paths.polymer.images], cb);
+    return del(paths.dist.root, cb);
 });
 
-/**
- * DEPENDENCIES
- * Copy vendor dependencies.
- */
-gulp.task('dependencies', () => {
-    return gulp.src(paths.dependencies.js)
-        .pipe(gulp.dest(paths.polymer.vendor));
-});
+// TODO: Add linting for app JS
+
+// TODO: Add linting for app SASS
 
 /**
  * APP
@@ -79,35 +68,32 @@ gulp.task('app', () => {
     return gulp.src(paths.src.pug)
         .pipe($.pug(options.pug))
         .on('error', (e) => console.log(e))
-        .pipe(gulp.dest(paths.polymer.src))
+        .pipe(gulp.dest(paths.dist.root))
         .pipe(browserSync.reload({
             stream: true
         }));
 });
+
+// TODO: Add postCSS autoprefixer task for inlined styles
 
 /**
- * STYLES
+ * IMAGES
+ * Optimizes images for web.
  */
-gulp.task('styles', () => {
-    return gulp.src(paths.src.scss)
-        .pipe($.sass().on('error', $.sass.logError))
-        .pipe($.autoprefixer(options.autoprefixer))
-        .pipe($.styleModules())
-        .pipe(gulp.dest(paths.polymer.src))
-        .pipe(browserSync.reload({
-            stream: true
-        }));
+gulp.task('images', () => {
+    return gulp.src(paths.src.images)
+        .pipe($.imagemin())
+        .pipe(gulp.dest(paths.dist.images));
 });
-
-// TODO Copy + Optimize Images
 
 /**
  * BROWSER SYNC
  */
 gulp.task('browserSync', () => {
     browserSync.init({
-        proxy: {
-            target: "http://localhost:8080",
+        server: {
+            baseDir: "./",
+            index: "index.html"
         },
         open: false,
         reloadOnRestart: true
@@ -116,11 +102,15 @@ gulp.task('browserSync', () => {
 
 
 gulp.task('default', () => {
-    runSequence('clean', 'app', 'styles');
+    runSequence(
+        'clean',
+        ['app', 'images']
+    );
 });
 
 gulp.task('watch', ['default', 'browserSync'], () => {
     gulp.watch(paths.src.pug, ['app']);
     gulp.watch(paths.src.js, ['app']);
     gulp.watch(paths.src.scss, ['app']);
+    gulp.watch(paths.src.images, ['images']);
 });
