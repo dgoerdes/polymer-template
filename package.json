@@ -3,13 +3,21 @@
   "version": "0.0.0",
   "description": "Let's do some Polymer!",
   "scripts": {
-    "start": "gulp watch"
+    "start": "gulp watch",
+    "lint:css": "sass-lint -v -q || true",
+    "lint:js": "eslint 'src/**/*.js' || true",
+    "lint": "npm-run-all lint:*"
   },
   "author": "Daniel Goerdes",
   "devDependencies": {
     "babel-preset-es2015": "^6.18.0",
     "browser-sync": "^2.18.6",
     "del": "^2.2.2",
+    "eslint": "^3.14.0",
+    "eslint-config-emakinacee": "^2.0.0",
+    "eslint-plugin-angular": "^1.6.1",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
     "gulp-concat": "^2.6.1",
@@ -20,9 +28,12 @@
     "gulp-style-modules": "^0.1.0",
     "jstransformer-babel": "^2.1.0",
     "jstransformer-sass": "^0.1.1",
-    "run-sequence": "^1.2.2"
+    "npm-run-all": "^4.0.1",
+    "run-sequence": "^1.2.2",
+    "sass-lint": "^1.10.2"
   },
   "dependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.22.0",
     "lodash": "^4.17.4"
   }
 }
