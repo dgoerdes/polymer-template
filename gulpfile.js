@@ -23,6 +23,7 @@ let paths = {
 
     dependencies: {
         js: [
+            'node_modules/lodash/lodash.js',
             'node_modules/rxjs/bundles/Rx.js',
             'node_modules/ramda/dist/ramda.js',
             'node_modules/redux/dist/redux.js',
@@ -63,6 +64,15 @@ gulp.task('clean', (cb) => {
     return del([paths.polymer.src, paths.polymer.vendor, paths.polymer.images], cb);
 });
 
+gulp.task('dependencies', () => {
+    return gulp.src(paths.dependencies.js)
+        .pipe(gulp.dest(paths.polymer.vendor));
+});
+
+/**
+ * DEPENDENCIES
+ * Copy vendor dependencies.
+ */
 gulp.task('dependencies', () => {
     return gulp.src(paths.dependencies.js)
         .pipe(gulp.dest(paths.polymer.vendor));
@@ -122,5 +132,5 @@ gulp.task('default', () => {
 gulp.task('watch', ['default', 'browserSync'], () => {
     gulp.watch(paths.src.pug, ['app']);
     gulp.watch(paths.src.js, ['app']);
-    gulp.watch(paths.src.scss, ['styles']);
+    gulp.watch(paths.src.scss, ['app']);
 });
