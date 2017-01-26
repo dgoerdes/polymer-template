@@ -53,14 +53,23 @@ gulp.task('clean', (cb) => {
     return del(paths.dist.root, cb);
 });
 
-// TODO: Add linting for app JS
-gulp.task('eslint', (cb) => {
+/**
+ * LINT JS
+ */
+gulp.task('jslint', () => {
     return gulp.src(paths.src.js)
         .pipe($.eslint())
         .pipe($.eslint.formatEach());
 });
 
-// TODO: Add linting for app SASS
+/**
+ * LINT SASS
+ */
+gulp.task('sasslint', () => {
+    return gulp.src(paths.src.scss)
+        .pipe($.sassLint())
+        .pipe($.sassLint.format());
+});
 
 /**
  * APP
@@ -69,7 +78,7 @@ gulp.task('eslint', (cb) => {
  * Includes scripts which get transpiled with babel if filterd.
  * https://github.com/jstransformers/jstransformer-babel
  */
-gulp.task('app', ['eslint'], () => {
+gulp.task('app', ['jslint', 'sasslint'], () => {
     return gulp.src(paths.src.pug)
         .pipe($.pug(options.pug))
         .on('error', (e) => console.log(e))

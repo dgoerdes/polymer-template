@@ -4,8 +4,8 @@
   "description": "Let's do some Polymer!",
   "scripts": {
     "start": "gulp watch",
-    "lint:css": "sass-lint -v -q || true",
-    "lint:js": "gulp eslint",
+    "lint:css": "gulp sasslint",
+    "lint:js": "gulp jslint",
     "lint": "npm-run-all lint:*"
   },
   "author": "Daniel Goerdes",
@@ -18,7 +18,7 @@
     "browser-sync": "^2.18.6",
     "del": "^2.2.2",
     "eslint": "^3.14.1",
-    "eslint-config-emakinacee": "^2.0.0",
+    "eslint-config-emakinacee": "^3.0.0",
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^2.0.1",
     "gulp": "^3.9.1",
@@ -28,6 +28,7 @@
     "gulp-load-plugins": "^1.4.0",
     "gulp-pug": "^3.2.0",
     "gulp-rename": "^1.2.2",
+    "gulp-sass-lint": "^1.3.2",
     "gulp-uglify": "^2.0.1",
     "jstransformer-babel": "^2.1.0",
     "jstransformer-sass": "^0.1.1",
