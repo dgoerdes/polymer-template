@@ -1,14 +1,20 @@
-# Polymer-Template using Pug + Babel + SCSS + Gulp
+# Polymer-Template with Pug, Babel and SCSS
 
 ## Prerequesites
-* gulp
-* bower
-* polymer-cli
+* Install yarn - https://yarnpkg.com/en/docs/getting-started
+* Install bower `npm i bower -g`
+
 
 ## Setup
-* Run `npm install` in the root directory
-* Run `bower install` in the polymer directory
+Run `yarn` in the root directory to install all dependencies.
+
 
 ## Dev
-* Run `npm start` in the root directory to watch files.
-* Run `polymer serve` in the polymer directory to run the dev server.
+Run `npm start` to build and watch all files and start a dev server.
+
+
+## Installing further dependencies
+As Polymer somehow uses bower for all dependencies and some are not correctly available on npm
+the best way would be to install all polymer dependencies with `bower install`.
+
+Use `yarn add` for all other dependencies available on npm.
