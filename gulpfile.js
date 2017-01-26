@@ -80,6 +80,7 @@ gulp.task('sasslint', () => {
  */
 gulp.task('app', ['jslint', 'sasslint'], () => {
     return gulp.src(paths.src.pug)
+        .pipe($.plumber())
         .pipe($.pug(options.pug))
         .on('error', (e) => console.log(e))
         .pipe(gulp.dest(paths.dist.root))
