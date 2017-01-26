@@ -18,6 +18,16 @@ Polymer({
             type: String,
             computed: 'computeString(_entries)',
         },
+        _apiResult: {
+            type: Number,
+            statePath: 'apiResult',
+            readOnly: true,
+        },
+        _apiPending: {
+            type: Boolean,
+            statePath: 'apiPending',
+            readOnly: true,
+        },
     },
     /*
         Computed Functions
@@ -79,6 +89,9 @@ Polymer({
         }
         this.dispatch('setFriend', { id: event.model.item.id, name });
     },
+    apiGet(event) {
+        this.dispatch('apiGet');
+    },
     /*
         Actions
     */
@@ -115,5 +128,19 @@ Polymer({
                 payload,
             };
         },
+        apiGet(payload) {
+            return (dispatch) => {
+                Rx.Observable.from([1])
+                    // .do(() => { console.log('action calling validate API'); })
+                    .delay(100)
+                    .map((payload) => ({
+                        type: 'API_GET',
+                        payload: { request: Math.random() },
+                    }))
+                    .do(({payload: {request}}) => { console.log('action got result from validate API', request); })
+                    .do(dispatch)
+                    .subscribe();
+            };
+        }
     },
 });

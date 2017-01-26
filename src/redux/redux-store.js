@@ -3,24 +3,30 @@ let store;
 let tickerTimer
 let fullTickerTimer
 function nextActionPredicate(state) {
+    if (!state.initialised) {
+        // Initial Setup
+        store.dispatch({ type: 'INIT' });
+        store.dispatch({ type: 'TICK', payload: { value: Math.round(Math.random() * 100) } });
+        store.dispatch({ type: 'FULL_TICK', payload: { value: Math.round(Math.random() * 100) } });
+        return;
+    }
     // Redux always requires async dispatch.
     if (state.ticker >= 3) {
-        setImmediate(() => {
-            store.dispatch({type: 'RESET_TICKER'});
-        });
+        store.dispatch({ type: 'RESET_TICKER' });
     }
     tickerTimer = tickerTimer || setTimeout(() => {
         tickerTimer = undefined;
-        store.dispatch({type: 'TICK'});
+        store.dispatch({ type: 'TICK' });
     }, 1000);
 
     fullTickerTimer = fullTickerTimer || setTimeout(() => {
         fullTickerTimer = undefined;
-        store.dispatch({type: 'FULL_TICK'});
+        store.dispatch({ type: 'FULL_TICK' });
     }, 1000);
 }
 
 const initialState = {
+    initialised: false,
     ticker: 0,
     fullTicker: 0,
     entries: [
@@ -28,12 +34,19 @@ const initialState = {
         { name: 'bar', id: 1, prio: 1, friend: undefined },
         { name: 'baz', id: 2, prio: 0 },
     ],
+    apiResult: -1,
+    apiPending: false,
 };
 
 function reducer(state = initialState, {type, payload = {}}) {
     let error;
 
     switch (type) {
+        case 'INIT': {
+            state.initialised = true;
+            break;
+        }
+
         case 'UPDATE_ENTRIES': {
             const index = Math.round(Math.random() * (state.entries.length - 1));
             const value = R.assocPath(['name'], `${parseFloat(`${Math.random()}`).toFixed(3)}`, state.entries[index]);
@@ -75,7 +88,7 @@ function reducer(state = initialState, {type, payload = {}}) {
         }
 
         case 'TICK': {
-            state.ticker += 1;
+            state.ticker += payload.value || 1;
             break;
         }
 
@@ -85,13 +98,39 @@ function reducer(state = initialState, {type, payload = {}}) {
         }
 
         case 'FULL_TICK': {
-            state.fullTicker += 1;
+            state.fullTicker += payload.value || 1;
+            break;
+        }
+
+        case 'API_GET': {
+            if (!payload.result) {
+                Rx.Observable.from([payload.request])
+                    .do(() => { state.apiPending = true; })
+                    .do((request) => { console.log('reducer calling data API', payload.request); })
+                    .delay(1000)
+                    .map((request) => ({
+                        type: 'API_GET',
+                        payload: { result: request },
+                    }))
+                    .do(({payload: {result}}) => { console.log('reducer got result from data API', result); })
+                    .do(::store.dispatch)
+                    .catch((error) => {
+                        console.error('data API error', error);
+                        return [];
+                    })
+                    .subscribe();
+            } else {
+                console.log('Reducer set API state', payload.result);
+                state.apiResult = payload.result;
+                state.apiPending = false;
+            }
             break;
         }
     }
 
-    nextActionPredicate(state);
-
+    setImmediate(() => {
+        nextActionPredicate(state);
+    });
     return state;
 }
 

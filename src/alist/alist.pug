@@ -6,6 +6,11 @@ dom-module(id="a-list")
 
     template
         h2.foo A list
+        span API Result: [[_apiResult]]
+        br
+        button(on-click='apiGet') API GET
+        span API Pending: [[_apiPending]]
+        br
         input(placeholder='item name' on-keypress='addEntry')
         br
         button(on-click='updateEntries') update the entries
@@ -14,7 +19,7 @@ dom-module(id="a-list")
         br
         button(on-click='updateEntriesAsyncThunk') update the entries async thunk middleware
         ul
-            template(is='dom-repeat' items='{{entries}}')
+            template(is='dom-repeat' items='[[entries]]')
                 li(class='entry')
                     span An item: [[item.name]], priority [[item.prio]], with friend: [[item.friend]]
                     br
