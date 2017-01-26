@@ -1,6 +1,7 @@
 # Polymer-Template using Pug + Babel + SCSS + Gulp
 
 ## Prerequesites
+* yarn
 * gulp
 * bower
 * polymer-cli
