@@ -3,6 +3,10 @@ files:
     - 'src/**/*.scss'
   ignore:
 rules:
+  property-sort-order:
+    - 2
+    -
+      order: smacss
   indentation:
     - 2
     -
