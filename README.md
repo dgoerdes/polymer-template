@@ -24,5 +24,5 @@ Use `yarn add` for all other dependencies available on npm.
 The general build of the app done by the default gulp task, like it is done on watch mode.
 The polymer-cli is then used to optimize and bundle the app.
 
-To get a ready to use build just execute `npm run buld`.
-To test the bundled app execute `npm run serveBuild`.
+To get a ready to use build just execute `npm run build`.
+To test the bundled app execute `npm run serveBundle`.

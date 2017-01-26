@@ -10,7 +10,7 @@
     "buildApp": "gulp",
     "bundleApp": "polymer build",
     "build": "npm-run-all buildApp bundleApp",
-    "serveBuild": "gulp serve:build"
+    "serveBundle": "gulp serve:build"
   },
   "author": "Daniel Goerdes",
   "devDependencies": {
