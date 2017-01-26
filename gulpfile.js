@@ -101,19 +101,34 @@ gulp.task('images', () => {
 });
 
 /**
- * BROWSER SYNC
+ * SERVE DEV
  */
-gulp.task('browserSync', () => {
+gulp.task('serve:dev', () => {
     browserSync.init({
         server: {
             baseDir: './',
             index: 'index.html'
         },
+        port: 3000,
         open: false,
         reloadOnRestart: true
     });
 });
 
+/**
+ * SERVE BUILD
+ */
+gulp.task('serve:build', () => {
+    browserSync.init({
+        server: {
+            baseDir: './build/bundled/',
+            index: 'index.html'
+        },
+        port: 4000,
+        open: false,
+        reloadOnRestart: true
+    });
+});
 
 gulp.task('default', () => {
     runSequence(
@@ -122,7 +137,7 @@ gulp.task('default', () => {
     );
 });
 
-gulp.task('watch', ['default', 'browserSync'], () => {
+gulp.task('watch', ['default', 'serve:dev'], () => {
     gulp.watch(paths.src.pug, ['app']);
     gulp.watch(paths.src.js, ['app']);
     gulp.watch(paths.src.scss, ['app']);

@@ -6,7 +6,11 @@
     "start": "gulp watch",
     "lint:css": "gulp sasslint",
     "lint:js": "gulp jslint",
-    "lint": "npm-run-all lint:*"
+    "lint": "npm-run-all lint:*",
+    "buildApp": "gulp",
+    "bundleApp": "polymer build",
+    "build": "npm-run-all buildApp bundleApp",
+    "serveBuild": "gulp serve:build"
   },
   "author": "Daniel Goerdes",
   "devDependencies": {
