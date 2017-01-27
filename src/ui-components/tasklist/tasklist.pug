@@ -1,0 +1,23 @@
+link(rel="import" href="../../../bower_components/polymer/polymer.html")
+link(rel="import" href="../task/task.html")
+
+link(rel="import" href="../../app-store.html")
+
+dom-module(id="dg-tasklist")
+    template
+        app-store
+        style
+            include:sass ./tasklist.scss
+
+        h2 The Task List
+        form(on-submit="addTask")
+            label(for="taskInput") Taskname:
+            input(type="text", name="taskInput", id="taskInput" value="{{taskname::input}}")
+            button add task
+
+        ul
+            template(is="dom-repeat" items="[[tasks]]")
+                li(is="dg-task" parent-id="[[componentId]]" id="[[item.id]]" name="[[item.name]]", priority="[[item.priority]]", status="[[item.status]]")
+
+    script
+        include:babel ./tasklist.js

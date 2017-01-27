@@ -1,0 +1,11 @@
+{
+    "extends": "emakinacee",
+    "globals": {
+        "_": true,
+        "R": true,
+        "Polymer": true,
+        "Redux": true,
+        "PolymerRedux": true,
+        "ReduxBehavior": true
+    }
+}

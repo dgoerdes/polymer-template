@@ -1,9 +1,10 @@
 link(rel="import" href="../../../bower_components/polymer/polymer.html")
+link(rel="import" href="../../ui-components/tasklist/tasklist.html")
 
 dom-module(id="home-page")
     template
         h1 This is POLYMER!
-        p Page: Home
+        dg-tasklist(component-id="1")
 
     script
         include:babel ./home.js
