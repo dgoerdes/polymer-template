@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Let's do some Polymer!",
   "scripts": {
+    "postinstall": "bower install",
     "start": "gulp watch",
     "lint:css": "gulp sasslint",
     "lint:js": "gulp jslint",
