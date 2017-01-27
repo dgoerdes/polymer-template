@@ -2,6 +2,10 @@
     "extends": "emakinacee",
     "globals": {
         "_": true,
-        "Polymer": true
+        "R": true,
+        "Polymer": true,
+        "Redux": true,
+        "PolymerRedux": true,
+        "ReduxBehavior": true
     }
 }

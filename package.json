@@ -42,7 +42,10 @@
     "sass-lint": "^1.10.2"
   },
   "dependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "ramda": "^0.23.0",
+    "redux": "^3.6.0",
+    "setimmediate": "^1.0.5"
   },
   "main": "index.html",
   "repository": "git@github.com:dgoerdes/polymer-template.git",
