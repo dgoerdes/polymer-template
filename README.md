@@ -5,6 +5,7 @@
 * Install bower `npm i bower -g`
 * Install the polymer-cli `npm i polymer-cli -g`
 
+
 ## Setup
 Run `yarn` in the root directory to install all dependencies.
 
