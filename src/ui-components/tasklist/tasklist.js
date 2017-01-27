@@ -1,10 +1,21 @@
 Polymer({
     is: 'dg-tasklist',
 
+    behaviors: [ ReduxBehavior ],
+
+    created: function () {
+        console.log(this.getAttribute('component-id'));
+        this.dispatch({
+            type: 'TASKLIST_REGISTER',
+            payload: {
+                id: this.getAttribute('component-id')
+            }
+        });
+    },
+
     properties: {
-        id: {
+        componentId: {
             type: Number,
-            value: 0
         },
         taskname: {
             type: String,
@@ -12,26 +23,30 @@ Polymer({
         },
         tasks: {
             type: Array,
-            value: []
+            statePath: function (state) {
+                console.log(state.tasklist.tasklists[this.componentId]);
+                return state.tasklist.tasklists[this.componentId].tasks;
+            }
         }
     },
 
-    ready: function () {
-        this.addEventListener('task:removed', this.removeTask);
-    },
-
     addTask: function (event) {
-
-        const task = {
-            id: this.id++,
-            name: this.taskname,
-            priority: 1,
-            status: 'open'
-        };
-
-        this.push('tasks', task);
-        this.taskname = '';
         event.preventDefault();
+
+        this.dispatch({
+            type: 'TASKLIST_TASK_ADD',
+            payload: {
+                componentId: this.componentId,
+                task: {
+                    id: _.uniqueId(),
+                    name: this.taskname,
+                    priority: 1,
+                    status: 'open'
+                }
+            }
+        });
+
+        this.taskname = '';
     },
 
     removeTask: function (event) {

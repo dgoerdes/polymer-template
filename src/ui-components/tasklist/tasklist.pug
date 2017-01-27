@@ -1,10 +1,11 @@
 link(rel="import" href="../../../bower_components/polymer/polymer.html")
 link(rel="import" href="../task/task.html")
 
-script(src="../../../node_modules/lodash/lodash.js")
+link(rel="import" href="../../app-store.html")
 
 dom-module(id="dg-tasklist")
     template
+        app-store
         style
             include:sass ./tasklist.scss
 
@@ -15,8 +16,8 @@ dom-module(id="dg-tasklist")
             button add task
 
         ul
-            template(is="dom-repeat" items="{{tasks}}")
-                li(is="dg-task" id="[[item.id]]" name="[[item.name]]", priority="{{item.priority}}", status="{{item.status}}")
+            template(is="dom-repeat" items="[[tasks]]")
+                li(is="dg-task" parent-id="[[componentId]]" id="[[item.id]]" name="[[item.name]]", priority="[[item.priority]]", status="[[item.status]]")
 
     script
         include:babel ./tasklist.js

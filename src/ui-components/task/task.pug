@@ -1,14 +1,17 @@
 link(rel="import" href="../../../bower_components/polymer/polymer.html")
 
+link(rel="import" href="../../app-store.html")
+
 dom-module(id="dg-task")
     template
+        app-store
         style
             include:sass ./task.scss
 
-        button.lower(on-click="lowerPriority") -
-        button.higher(on-click="higherPriority") +
-        span.name [[name]] 
-        span.priority ([[priority]]) - 
+        button.lower(on-click="lowerPriority" disabled="[[isTaskDone]]") -
+        button.higher(on-click="higherPriority" disabled="[[isTaskDone]]") +
+        span.name [[name]]
+        span.priority ([[priority]]) -
         span.status [[status]]
         button.remove(on-click="removeTask") X
 
